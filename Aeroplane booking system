@@ -1,0 +1,74 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+const int MAX_SEATS = 10;
+
+struct Passenger {
+    string name;
+    int age;
+    string passport;
+};
+
+Passenger seats[MAX_SEATS];
+bool isBooked[MAX_SEATS] = {false};
+
+void bookSeat() {
+    int seatNumber;
+    cout << "Enter seat number to book (1-" << MAX_SEATS << "): ";
+    cin >> seatNumber;
+
+    if (seatNumber < 1 || seatNumber > MAX_SEATS) {
+        cout << "Invalid seat number.\n";
+        return;
+    }
+
+    if (isBooked[seatNumber - 1]) {
+        cout << "Seat already booked!\n";
+    } else {
+        Passenger p;
+        cout << "Enter passenger name: ";
+        cin.ignore(); // to clear newline from buffer
+        getline(cin, p.name);
+        cout << "Enter age: ";
+        cin >> p.age;
+        cout << "Enter passport number: ";
+        cin >> p.passport;
+
+        seats[seatNumber - 1] = p;
+        isBooked[seatNumber - 1] = true;
+        cout << "Seat booked successfully for " << p.name << "!\n";
+    }
+}
+
+void viewBookings() {
+    cout << "\n--- Booked Seats ---\n";
+    for (int i = 0; i < MAX_SEATS; ++i) {
+        if (isBooked[i]) {
+            cout << "Seat " << i + 1 << ": " << seats[i].name 
+                 << ", Age: " << seats[i].age 
+                 << ", Passport: " << seats[i].passport << endl;
+        }
+    }
+}
+
+int main() {
+    int choice;
+    do {
+        cout << "\n===== Aeroplane Booking System =====\n";
+        cout << "1. Book a seat\n";
+        cout << "2. View bookings\n";
+        cout << "3. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch(choice) {
+            case 1: bookSeat(); break;
+            case 2: viewBookings(); break;
+            case 3: cout << "Thank you for using the system!\n"; break;
+            default: cout << "Invalid choice.\n";
+        }
+    } while (choice != 3);
+
+    return 0;
+}
