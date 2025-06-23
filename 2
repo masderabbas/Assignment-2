@@ -1,1 +1,27 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+const int MAX_SEATS = 10;
+
+struct Passenger {
+    string name;
+    int age;
+    string passport;
+};
+
+Passenger seats[MAX_SEATS];
+bool isBooked[MAX_SEATS] = {false};
+
+void bookSeat() {
+    int seatNumber;
+    cout << "Enter seat number to book (1-" << MAX_SEATS << "): ";
+    cin >> seatNumber;
+
+    if (seatNumber < 1 || seatNumber > MAX_SEATS) {
+        cout << "Invalid seat number.\n";
+        return;
+    }
+
+    if (i
 
